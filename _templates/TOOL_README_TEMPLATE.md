@@ -1,7 +1,8 @@
 # 软件名称
 
 **Current Version:** v0.1.0  
-**Repository Standard:** v1.2.1  
+**Release Standard:** v1.3.0  
+**Current Compatible Standard:** v1.3.0  
 **Status:** 开发中 / 待测试 / 已完成
 
 ## 1. 软件用途
@@ -189,3 +190,14 @@ EXTERNAL_API_KEY=
 - **高风险 live test 是否默认关闭：** 是 / 否  
 
 必须明确说明 UI 生命周期与后台服务生命周期，禁止只写“关闭软件”但不说明后台是否仍运行。
+
+
+## 24. Git 分支与版本定位
+
+- **正式源：** `main`
+- **工具稳定分支：** `tool/software-name`
+- **当前稳定 Tag：** `software-name-v0.1.0` / 未建立
+- **本次开发分支：** `feat/... / fix/... / docs/...`
+- **临时分支合并后是否已删除：** 是 / 否 / 不适用
+
+注意：`tool/*` 只是当前稳定入口，不允许长期独立于 `main` 演进。
