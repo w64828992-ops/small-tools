@@ -1,7 +1,7 @@
 # 软件名称
 
 **Current Version:** v0.1.0  
-**Repository Standard:** v1.2.0  
+**Repository Standard:** v1.2.1  
 **Status:** 开发中 / 待测试 / 已完成
 
 ## 1. 软件用途
