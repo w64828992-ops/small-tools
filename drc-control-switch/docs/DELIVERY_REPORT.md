@@ -2,7 +2,8 @@
 
 **软件：** drc-control-switch  
 **版本：** v1.0.0  
-**Repository Standard：** v1.2.0  
+**Release Standard：** v1.2.0  
+**Current Compatible Standard：** v1.3.0  
 **交付日期：** 2026-09-22  
 **状态：** 已完成
 
@@ -62,3 +63,12 @@
 - 依赖固定 LaunchAgent Label 与 plist 路径。
 - 仅支持 macOS。
 - 无自动更新机制。
+
+
+## 分支治理复核
+
+- 正式源：`main`
+- 稳定入口：`tool/drc-control-switch`
+- Release Standard：v1.2.0
+- Current Compatible Standard：v1.3.0
+- 旧临时分支：应在合并后删除；如当前工具权限无法物理删除，必须保持与 `main` 同步并明确记录待清理。
