@@ -1,6 +1,6 @@
 # small-tools
 
-> Repository Standard: **v1.2.0**
+> Repository Standard: **v1.2.1**
 
 这是所有自制软件、小工具和自动化程序的长期代码资产库。
 
@@ -13,7 +13,7 @@
 - 每次正式更新都要维护版本号和 CHANGELOG。
 - 新软件必须按 S0、S1、S2 判断安全级别，不能默认“以后再补安全”。
 - 真实密码、Token、API Key、Cookie、私钥等真实凭证不得进入 Git。
-- Pull Request 和 main 分支推送自动执行敏感信息扫描。
+- Pull Request 和 main 分支推送自动执行敏感信息扫描；**自动扫描必须有对应运行记录并通过，未触发不能视为通过。**
 - 主规则更新后，README、模板、CHANGELOG 和受影响的软件要同步检查。
 - 桌面工具必须可从源码重建；安装、窗口生命周期与后台服务生命周期必须明确分离。
 
