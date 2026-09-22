@@ -1,7 +1,7 @@
 # 认证、授权与密钥管理规范
 
 **Security Standard Version: v1.0.0**  
-**适配 Repository Standard: v1.1.0**  
+**适配 Repository Standard: v1.2.0**  
 **生效日期：2026-09-22**  
 **状态：正式生效**
 
