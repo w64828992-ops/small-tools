@@ -2,7 +2,7 @@
 
 **软件：** software-name  
 **版本：** v0.1.0  
-**Repository Standard：** v1.2.0  
+**Repository Standard：** v1.2.1  
 **交付日期：** YYYY-MM-DD  
 **状态：** 已完成 / 待测试 / 待确认 / 开发中
 
