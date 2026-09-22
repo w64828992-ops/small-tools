@@ -2,6 +2,34 @@
 
 记录 `small-tools` 仓库层面的治理、规则和结构变化。
 
+## Repository Standard v1.3.0 - 2026-09-22
+
+### 新增
+
+- 建立“`main` 唯一正式源 + `tool/<software-name>` 稳定入口 + 临时开发分支”的分支治理制度。
+- 明确 `feat/*`、`fix/*`、`docs/*`、`security/*` 为短期分支，合并后原则上删除。
+- 正式历史版本改用 `<software-name>-vX.Y.Z` Tag，不再用长期版本分支保存。
+- 新增分支清理检查，防止同一工具存在多个重复、过期或误导分支。
+- 软件 README 增加 Release Standard 与 Current Compatible Standard 双版本记录方式。
+
+### 修改
+
+- 主规则由 v1.2.1 升级为 v1.3.0。
+- 根 README、工具 README 模板、交付摘要模板同步加入分支治理要求。
+- DRC 控制开关保留 Release Standard v1.2.0，并确认 Current Compatible Standard v1.3.0。
+
+### 原因
+
+- 检查 DRC 工具后发现同一工具存在 `feat/`、`feature/` 和规范临时分支残留，其中一个名称像正式版本但实际没有 DRC 源码，容易误判。
+- 需要明确“分支是整个仓库快照，不是软件文件夹”，同时为每个小工具提供稳定入口而不制造独立代码主线。
+
+### 生效范围
+
+- 所有后续小工具立即执行。
+- 已有工具在下一次维护时建立 `tool/<software-name>` 稳定入口并清理已合并临时分支。
+
+---
+
 ## Repository Standard v1.2.1 - 2026-09-22
 
 ### 修复
