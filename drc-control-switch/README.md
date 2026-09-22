@@ -1,7 +1,8 @@
 # DRC 控制开关
 
 **Current Version:** v1.0.0  
-**Repository Standard:** v1.2.0  
+**Release Standard:** v1.2.0  
+**Current Compatible Standard:** v1.3.0  
 **Status:** 已完成  
 **Security Level:** S2（涉及远程访问开关，但本工具本身不保存认证凭证）
 
@@ -225,3 +226,15 @@ v1.0.0 为首个稳定版。
 完整记录见 [CHANGELOG.md](CHANGELOG.md)。
 
 当前版本以 `VERSION` 为准。
+
+
+## 16. Git 分支与版本定位
+
+- **正式代码源：** `main`
+- **长期稳定入口：** `tool/drc-control-switch`
+- **发布版本：** v1.0.0
+- **Release Standard：** v1.2.0
+- **Current Compatible Standard：** v1.3.0
+- **版本 Tag：** 建议使用 `drc-control-switch-v1.0.0`
+
+历史发布事实以 Release Standard 为准；后续规范兼容检查以 Current Compatible Standard 为准。
