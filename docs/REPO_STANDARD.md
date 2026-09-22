@@ -1,6 +1,6 @@
 # small-tools 开发、版本与归档主规则
 
-**Rule Version: v1.2.1**  
+**Rule Version: v1.3.0**  
 **生效日期：2026-09-22**  
 **规则状态：正式生效**
 
@@ -858,7 +858,7 @@ docs/REPO_STANDARD.md
 软件 README 中应标记：
 
 ```text
-Repository Standard: v1.2.0
+Repository Standard: v1.3.0
 ```
 
 这样未来规则升级后，可以判断旧软件是否需要升级规范。
@@ -1032,3 +1032,138 @@ software-name/
 ```
 
 简单工具可按实际情况删减，但“源码 + 版本 + 构建 + 使用 + 验证”五项不得缺失。
+
+
+---
+
+## 30. 分支与小工具长期维护规则
+
+本仓库采用“`main` 为唯一正式源 + 每个小工具一个稳定入口分支 + 临时开发分支短期存在”的方式管理。
+
+### 30.1 main 是唯一正式代码源
+
+`main` 代表仓库当前正式状态。所有已经验收、可交付、可恢复的小工具最终都必须进入 `main`。
+
+禁止让某个小工具长期只存在于独立分支而不进入 `main`。恢复、交接、审计和重新构建时，默认优先以 `main` 为准。
+
+### 30.2 每个小工具建立一个长期稳定入口分支
+
+每个持续维护的软件建立：
+
+```text
+tool/<software-name>
+```
+
+例如：
+
+```text
+tool/drc-control-switch
+```
+
+该分支的职责是指向该工具当前已确认的稳定状态，便于快速定位、继续开发和交接。
+
+注意：Git 分支包含整个仓库快照，不是文件夹。因此 `tool/drc-control-switch` 中看到其他仓库文件属于正常现象，不代表源码重复。
+
+### 30.3 tool 分支不得成为独立主线
+
+`tool/*` 不作为长期独立开发主线，不允许与 `main` 长期分叉。
+
+正式版本发布后，应将对应 `tool/*` 分支同步到该工具已进入 `main` 的稳定提交。
+
+### 30.4 临时开发分支命名
+
+新增功能：
+
+```text
+feat/<software-name>/<short-description>
+```
+
+Bug 修复：
+
+```text
+fix/<software-name>/<short-description>
+```
+
+仓库规范或文档：
+
+```text
+docs/<short-description>
+```
+
+安全修复：
+
+```text
+security/<software-name>/<short-description>
+```
+
+禁止同时混用 `feat/` 与 `feature/` 等重复前缀。
+
+### 30.5 临时分支生命周期
+
+标准流程：
+
+```text
+从 main 创建临时分支
+→ 开发
+→ 测试
+→ 文档/版本检查
+→ PR
+→ 合并 main
+→ 同步对应 tool/* 稳定分支
+→ 删除临时分支
+```
+
+临时 `feat/*`、`fix/*`、`docs/*`、`security/*` 分支合并后原则上必须删除，避免形成“看起来像正式版本但实际已过期”的分支。
+
+### 30.6 正式版本使用 Tag，而不是版本分支
+
+正式版本使用不可变 Tag：
+
+```text
+<software-name>-vMAJOR.MINOR.PATCH
+```
+
+例如：
+
+```text
+drc-control-switch-v1.0.0
+```
+
+禁止用以下方式长期保存版本：
+
+```text
+feature/drc-control-switch-v1.0.0
+final-v1
+latest
+stable2
+```
+
+Tag 用于历史版本定位；`tool/*` 用于当前稳定入口；`main` 是唯一正式源。三者职责必须分开。
+
+### 30.7 分支清理检查
+
+每次正式交付后必须检查：
+
+- 是否残留已合并临时分支；
+- 是否存在同一软件多个含义重复的长期分支；
+- `tool/*` 是否与当前稳定 `main` 提交一致；
+- 是否存在名字像正式版本、但内容为空或过期的误导分支；
+- 是否需要建立正式版本 Tag。
+
+如 GitHub 工具权限不支持删除分支，必须明确记录“待物理删除”，不得宣称已经清理完成。
+
+### 30.8 软件 README 记录两个规范版本
+
+持续维护的软件 README 推荐同时记录：
+
+```text
+Release Standard: vX.Y.Z
+Current Compatible Standard: vA.B.C
+```
+
+含义：
+
+- **Release Standard**：该版本正式发布时实际遵循的仓库规范版本，作为历史记录，不随规范升级而改写。
+- **Current Compatible Standard**：最近一次检查确认兼容的当前仓库规范版本，可随规范审查更新。
+
+这样既保留历史真实性，又能判断旧工具是否适配当前治理要求。
