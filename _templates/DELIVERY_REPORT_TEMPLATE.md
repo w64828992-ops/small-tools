@@ -2,7 +2,8 @@
 
 **软件：** software-name  
 **版本：** v0.1.0  
-**Repository Standard：** v1.2.1  
+**Release Standard：** v1.3.0  
+**Current Compatible Standard：** v1.3.0  
 **交付日期：** YYYY-MM-DD  
 **状态：** 已完成 / 待测试 / 待确认 / 开发中
 
@@ -91,3 +92,13 @@
 - [ ] 状态显示来自真实系统状态
 - [ ] 默认自动测试不会切断当前关键连接
 - [ ] live / destructive 测试需要显式 opt-in
+
+
+## 分支与版本治理
+
+- [ ] 正式代码已进入 `main`
+- [ ] 对应 `tool/<software-name>` 已同步到稳定提交
+- [ ] 已合并的 `feat/*`、`fix/*`、`docs/*`、`security/*` 临时分支已删除
+- [ ] 未保留误导性的版本分支
+- [ ] 需要时已建立 `<software-name>-vX.Y.Z` Tag
+- [ ] README 的 Release Standard / Current Compatible Standard 已更新
