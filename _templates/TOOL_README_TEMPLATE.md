@@ -1,7 +1,7 @@
 # 软件名称
 
 **Current Version:** v0.1.0  
-**Repository Standard:** v1.0.0  
+**Repository Standard:** v1.1.0  
 **Status:** 开发中 / 待测试 / 已完成
 
 ## 1. 软件用途
@@ -84,13 +84,15 @@ Node.js 22+
 
 说明需要哪些配置。
 
-真实密码、Token、API Key 默认不写入仓库。
+真实密码、Token、API Key、Cookie 和私钥不得写入仓库。复制 `_templates/.env.example` 到软件目录，只保留实际需要的变量；真实值由本地环境、部署平台 Secret 或密钥服务注入。
 
 示例：
 
 ```text
-OPENAI_API_KEY=your_key_here
+EXTERNAL_API_KEY=
 ```
+
+说明凭证由谁配置、需要什么权限、如何轮换和撤销，但不要记录真实值。
 
 ## 11. 安装方法
 
@@ -160,3 +162,15 @@ OPENAI_API_KEY=your_key_here
 3. 是否需要升级版本号。
 4. 是否需要补充测试。
 5. 是否已同步 README 和 CHANGELOG。
+
+## 22. 安全与权限
+
+- **安全级别：** S0 / S1 / S2
+- **身份来源：** 无 / Session / OAuth / JWT / API Key / 其他
+- **权限模型：** 说明角色、动作和资源边界
+- **凭证来源：** 本地环境 / GitHub Secret / 部署平台 / Secret Manager
+- **Token 生命周期：** 说明有效期、轮换、撤销和退出处理
+- **日志脱敏：** 说明哪些字段禁止记录
+- **已测试：** 缺失、错误、过期、撤销和越权场景
+
+详细检查使用 [安全检查模板](SECURITY_CHECKLIST.md)。

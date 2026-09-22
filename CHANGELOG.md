@@ -2,6 +2,35 @@
 
 记录 `small-tools` 仓库层面的治理、规则和结构变化。
 
+## Repository Standard v1.1.0 - 2026-09-22
+
+### 新增
+
+- 新增 `docs/AUTH_AND_SECRETS_STANDARD.md`，建立 S0/S1/S2 分级、请求认证、授权、凭证注入、Token 生命周期、日志脱敏和测试规则。
+- 新增 `SECURITY.md`，明确漏洞报告和凭证泄露的处置顺序。
+- 新增 `_templates/SECURITY_CHECKLIST.md` 与 `_templates/.env.example`。
+- 新增 Gitleaks 工作流，对 Pull Request 和 main 推送执行完整历史秘密扫描。
+- 新增 Dependabot GitHub Actions 月度更新和 CODEOWNERS。
+
+### 修改
+
+- 主规则由 v1.0.0 升级为 v1.1.0。
+- 取消“负责人确认后可提交明文凭证”的例外；真实凭证一律留在 Git 之外。
+- 扩展 `.gitignore` 的证书、密钥库、Token 文件和包管理凭证保护。
+- README、工具 README 模板和交付摘要模板同步加入安全级别与安全检查。
+
+### 安全影响
+
+- 新增自动检测，但 `.gitignore` 和扫描不能替代凭证轮换、最小权限和 GitHub 仓库设置。
+- 如凭证误入历史，必须先撤销或轮换，再清理历史。
+
+### 生效范围
+
+- 所有新软件立即执行 v1.1.0。
+- 现有软件在下一次修改时完成安全分级和适配。
+
+---
+
 ## Repository Standard v1.0.0 - 2026-09-19
 
 ### 新增

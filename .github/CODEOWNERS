@@ -1,0 +1,5 @@
+# Repository and security rules require owner review.
+* @w64828992-ops
+/SECURITY.md @w64828992-ops
+/docs/AUTH_AND_SECRETS_STANDARD.md @w64828992-ops
+/.github/ @w64828992-ops
