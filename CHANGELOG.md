@@ -2,6 +2,34 @@
 
 记录 `small-tools` 仓库层面的治理、规则和结构变化。
 
+## Repository Standard v1.4.0 - 2026-09-24
+
+### 新增
+
+- 建立“开发完成即自动归档 GitHub”的默认规则，负责人以后不需要每次重复提醒上传。
+- 明确完整自动归档链路：临时分支 → PR → Secret Scan/CI 实际通过 → 合并 `main` → 同步 `tool/*` → 正式 Tag（适用时）→ 交付摘要。
+- 新增根目录 `AGENTS.md`，让 ChatGPT、Codex、RDC 本机开发和其他 AI 开发代理统一执行当前仓库规范。
+- 交付摘要增加 Repository、Commit SHA、PR、扫描、main、tool 分支、Tag 和临时分支清理状态记录。
+
+### 修改
+
+- 主规则由 v1.3.0 升级为 v1.4.0。
+- 根 README、工具 README 模板、交付摘要模板同步升级。
+- `drc-control-switch` 的 Current Compatible Standard 经复核更新为 v1.4.0；其 Release Standard 仍保持 v1.2.0，软件版本仍为 v1.0.0。
+
+### 原因
+
+- 负责人要求后续每次开发完成后，代码默认自动上传并归档到 `w64828992-ops/small-tools`，不再依赖人工重复提醒。
+- 需要把“代码写完”与“GitHub 已归档、可追溯、可回退”绑定为同一个完成标准。
+
+### 生效范围
+
+- 所有后续新工具和修改任务立即执行。
+- 现有工具下次开发时自动按本规则完成归档。
+- 遇到敏感凭证、核心业务规则变更、扫描失败、冲突或不可逆 Git 操作时仍必须暂停确认。
+
+---
+
 ## Repository Standard v1.3.0 - 2026-09-22
 
 ### 新增
