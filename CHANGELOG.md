@@ -16,6 +16,7 @@
 - 主规则由 v1.3.0 升级为 v1.4.0。
 - 根 README、工具 README 模板、交付摘要模板同步升级。
 - `drc-control-switch` 的 Current Compatible Standard 经复核更新为 v1.4.0；其 Release Standard 仍保持 v1.2.0，软件版本仍为 v1.0.0。
+- 修复 Secret Scan 工作流的 PR 读取权限，增加 `pull-requests: read`，避免 Gitleaks 在 PR 扫描时因 GitHub Token 权限不足返回 403。
 
 ### 原因
 
