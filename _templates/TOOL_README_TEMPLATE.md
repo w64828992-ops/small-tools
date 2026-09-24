@@ -1,8 +1,8 @@
 # 软件名称
 
 **Current Version:** v0.1.0  
-**Release Standard:** v1.3.0  
-**Current Compatible Standard:** v1.3.0  
+**Release Standard:** v1.4.0  
+**Current Compatible Standard:** v1.4.0  
 **Status:** 开发中 / 待测试 / 已完成
 
 ## 1. 软件用途
@@ -199,5 +199,6 @@ EXTERNAL_API_KEY=
 - **当前稳定 Tag：** `software-name-v0.1.0` / 未建立
 - **本次开发分支：** `feat/... / fix/... / docs/...`
 - **临时分支合并后是否已删除：** 是 / 否 / 不适用
+- **最近一次自动归档：** Commit / PR / Secret Scan / Tag 状态
 
 注意：`tool/*` 只是当前稳定入口，不允许长期独立于 `main` 演进。
