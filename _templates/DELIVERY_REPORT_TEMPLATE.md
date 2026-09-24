@@ -2,8 +2,8 @@
 
 **软件：** software-name  
 **版本：** v0.1.0  
-**Release Standard：** v1.3.0  
-**Current Compatible Standard：** v1.3.0  
+**Release Standard：** v1.4.0  
+**Current Compatible Standard：** v1.4.0  
 **交付日期：** YYYY-MM-DD  
 **状态：** 已完成 / 待测试 / 待确认 / 开发中
 
@@ -61,9 +61,20 @@
 
 ## GitHub 状态
 
-- [ ] 代码已提交
+- **Repository：** `w64828992-ops/small-tools`
+- **开发分支：** 
+- **最终 Commit SHA：** 
+- **PR：** 
+- **Secret Scan / CI：** 已通过 / 未通过 / 未触发 / 待确认
+- **正式 Tag：** 
+- [ ] 代码已推送到临时开发分支
 - [ ] 提交信息清楚
+- [ ] PR 已创建
+- [ ] Secret Scan / CI 已实际产生运行记录并通过
+- [ ] PR 已合并到 `main`
+- [ ] `tool/<software-name>` 已同步到当前稳定提交
 - [ ] 稳定版本 Tag 已建立（需要时）
+- [ ] 已合并临时分支已删除（权限支持时）
 
 ## 已知问题
 
