@@ -1,6 +1,6 @@
 # small-tools
 
-> Repository Standard: **v1.3.0**
+> Repository Standard: **v1.4.0**
 
 这是所有自制软件、小工具和自动化程序的长期代码资产库。
 
@@ -17,6 +17,7 @@
 - 主规则更新后，README、模板、CHANGELOG 和受影响的软件要同步检查。
 - 桌面工具必须可从源码重建；安装、窗口生命周期与后台服务生命周期必须明确分离。
 - `main` 是唯一正式代码源；每个持续维护小工具使用 `tool/<software-name>` 作为稳定入口，临时开发分支合并后删除。
+- **开发完成默认自动归档 GitHub**：代码通过临时分支 → PR → Secret Scan/CI 实际通过 → 合并 `main` → 同步 `tool/*` → 必要时建立 Tag；负责人无需每次重复提醒上传。
 
 ## 仓库结构
 
@@ -102,8 +103,12 @@ software-name/
 → 完成认证、授权和凭证处理（适用时）
 → 测试核心、异常和越权场景
 → 更新 README / CHANGELOG / VERSION
-→ 执行敏感信息扫描
-→ 提交 GitHub
+→ 本地敏感信息检查
+→ 推送临时分支并创建 PR
+→ 确认 Secret Scan / CI 实际通过
+→ 合并 main
+→ 同步 tool/<software-name>
+→ 必要时创建正式 Tag
 → 输出交付摘要
 ~~~
 
