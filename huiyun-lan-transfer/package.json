@@ -1,0 +1,84 @@
+{
+  "name": "huiyun-lan-transfer",
+  "version": "1.0.0",
+  "description": "汇云局域网跨传 - Windows/macOS 局域网点对点文件快传工具",
+  "main": "src/main.js",
+  "author": "Huiyun",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test tests/*.test.js",
+    "check:syntax": "node --check src/main.js && node --check src/preload.js && node --check src/discovery.js && node --check src/transfer.js && node --check src/settings.js && node --check src/path-utils.js && node --check src/network-utils.js && node --check renderer/renderer.js",
+    "check": "npm run check:syntax && npm test",
+    "dist:win": "electron-builder --win nsis portable --x64",
+    "dist:mac": "electron-builder --mac dmg zip --universal"
+  },
+  "devDependencies": {
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.huiyun.lantransfer",
+    "productName": "汇云局域网跨传",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "renderer/**/*",
+      "build/icon.*",
+      "package.json",
+      "VERSION"
+    ],
+    "artifactName": "Huiyun-LAN-Transfer-${version}-${os}-${arch}.${ext}",
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "artifactName": "Huiyun-LAN-Transfer-Setup-${version}-${arch}.${ext}",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "汇云局域网跨传"
+    },
+    "portable": {
+      "artifactName": "Huiyun-LAN-Transfer-Portable-${version}-${arch}.${ext}"
+    },
+    "mac": {
+      "icon": "build/icon.icns",
+      "category": "public.app-category.utilities",
+      "identity": null,
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "universal"
+          ]
+        }
+      ]
+    }
+  }
+}

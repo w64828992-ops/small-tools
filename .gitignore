@@ -24,6 +24,9 @@ pnpm-debug.log*
 # Build / cache
 dist/
 build/
+# Source icon assets for the Huiyun LAN transfer app are intentionally versioned.
+!huiyun-lan-transfer/build/
+!huiyun-lan-transfer/build/icon.*
 .cache/
 .tmp/
 temp/

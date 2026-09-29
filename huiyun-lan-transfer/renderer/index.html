@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>汇云局域网跨传</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="../build/icon.png" alt="" class="brand-icon">
+      <div>
+        <h1>汇云局域网跨传</h1>
+        <p>局域网点对点文件快传</p>
+      </div>
+    </div>
+    <div class="device-box">
+      <div class="device-label">本机名称</div>
+      <button id="deviceNameButton" class="device-name" title="点击修改电脑名称">正在读取…</button>
+      <span class="online-dot"></span>
+    </div>
+  </header>
+
+  <div id="firewallTip" class="firewall-tip">
+    首次使用如出现 Windows 防火墙提示，请允许“专用网络”，这样同一局域网电脑才能互相发现。
+    <button id="dismissFirewall" aria-label="关闭提示">×</button>
+  </div>
+
+  <section id="incomingArea" class="incoming-area hidden">
+    <div class="section-title-row">
+      <h2>待接收</h2>
+      <span class="pill attention">有电脑正在给你发文件</span>
+    </div>
+    <div id="incomingList" class="incoming-list"></div>
+  </section>
+
+  <main class="layout">
+    <aside class="sidebar panel">
+      <div class="section-title-row">
+        <h2>附近电脑</h2>
+        <span id="peerCount" class="pill">0 台</span>
+      </div>
+      <p class="muted compact">自动发现同一局域网中已打开本软件的电脑。</p>
+      <div id="peerList" class="peer-list"></div>
+      <div id="emptyPeers" class="empty-peers">
+        <div class="radar">⌁</div>
+        <strong>正在寻找附近电脑</strong>
+        <span>请确认另一台电脑也已打开本软件</span>
+      </div>
+    </aside>
+
+    <section class="content">
+      <div class="panel send-panel">
+        <div class="selected-target">
+          <div>
+            <div class="eyebrow">发送到</div>
+            <h2 id="targetName">请先选择左侧电脑</h2>
+            <p id="targetAddress" class="muted">选择后即可拖入文件或文件夹</p>
+          </div>
+          <span id="targetBadge" class="target-badge offline">未选择</span>
+        </div>
+
+        <div id="dropZone" class="drop-zone disabled">
+          <div class="drop-icon">⇄</div>
+          <h3>拖入文件或文件夹</h3>
+          <p>先选择电脑，然后把要发送的内容直接拖到这里</p>
+          <div class="browse-actions">
+            <button id="selectFilesButton" class="button primary">选择文件</button>
+            <button id="selectFolderButton" class="button secondary">选择文件夹</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel activity-panel">
+        <div class="section-title-row">
+          <h2>传输记录</h2>
+          <button id="clearCompleted" class="link-button">清理已完成</button>
+        </div>
+        <div id="activityList" class="activity-list"></div>
+        <div id="emptyActivity" class="empty-activity">还没有传输任务</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span id="statusText">正在启动局域网服务…</span>
+    <span id="versionText"></span>
+  </footer>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="./renderer.js"></script>
+</body>
+</html>

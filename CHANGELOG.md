@@ -2,6 +2,16 @@
 
 记录 `small-tools` 仓库层面的治理、规则和结构变化。
 
+## 2026-09-29 - 汇云局域网跨传 v1.0.0
+
+### 新增
+
+- 新增跨 Windows / macOS 的小工具 `huiyun-lan-transfer`，用于可信局域网点对点文件和文件夹快传。
+- 新增该工具的 Windows / macOS 双平台 GitHub Actions 构建验证。
+- `.gitignore` 对 `huiyun-lan-transfer/build/icon.*` 增加例外，确保原创应用图标源资产可随源码归档和重建。
+
+---
+
 ## 2026-09-29 - Windows RDC 标准开发工作流
 
 ### 新增
