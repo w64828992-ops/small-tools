@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2B7FFF"/>
+      <stop offset="1" stop-color="#0B4FB8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="220" fill="url(#g)"/>
+  <rect x="145" y="250" width="330" height="245" rx="34" fill="#fff" opacity=".97"/>
+  <rect x="549" y="529" width="330" height="245" rx="34" fill="#fff" opacity=".97"/>
+  <rect x="185" y="292" width="250" height="155" rx="18" fill="#DDEBFF"/>
+  <rect x="589" y="571" width="250" height="155" rx="18" fill="#DDEBFF"/>
+  <rect x="278" y="495" width="64" height="62" rx="12" fill="#fff"/>
+  <rect x="682" y="774" width="64" height="62" rx="12" fill="#fff"/>
+  <rect x="218" y="544" width="185" height="38" rx="19" fill="#fff"/>
+  <rect x="622" y="823" width="185" height="38" rx="19" fill="#fff"/>
+  <path d="M445 407h255l-54-54 38-38 119 119-119 119-38-38 54-54H445z" fill="#fff"/>
+  <path d="M579 617H324l54 54-38 38-119-119 119-119 38 38-54 54h255z" fill="#9BC1FF"/>
+</svg>
