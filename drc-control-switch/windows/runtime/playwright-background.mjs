@@ -13,7 +13,8 @@ const singleton = net.createServer(s => s.destroy());
 singleton.on('error', () => process.exit(0));
 singleton.listen('\\\\.\\pipe\\HuiyunPlaywrightController-Administrator-01a0d344');
 
-let child = null, ready = false, error = '', retryAt = 0, idleOffSince = 0;
+let child = null, ready = false, error = '', retryAt = 0;
+const pollMs = 150;
 
 const desired = () => {
   try { return fs.readFileSync('playwright_desired.txt', 'utf8').trim() === 'on'; }
@@ -34,7 +35,7 @@ function portOpen() {
   return new Promise(resolve => {
     const s = net.connect({ host: '127.0.0.1', port });
     const done = value => { try { s.destroy(); } catch {} resolve(value); };
-    s.setTimeout(500);
+    s.setTimeout(150);
     s.once('connect', () => done(true));
     s.once('timeout', () => done(false));
     s.once('error', () => done(false));
@@ -103,38 +104,40 @@ function start() {
   child.on('error', e => { error = e.message; });
   child.on('exit', code => {
     if (child === current) {
+      const intentionalStop = current.intentionalStop === true;
       child = null; ready = false;
-      if (code && !error) error = 'Playwright 进程退出，代码 ' + code;
-      retryAt = Date.now() + 5000;
+      if (!intentionalStop && code && !error) error = 'Playwright 进程退出，代码 ' + code;
+      // Normal switch-off must be able to restart almost immediately. Only real crashes back off.
+      retryAt = Date.now() + (intentionalStop ? 100 : 1500);
     }
   });
 }
 
 function stop() {
-  if (!child) return;
+  if (!child || child.stopping) return;
+  child.stopping = true;
+  child.intentionalStop = true;
+  ready = false;
   const pid = child.pid;
-  child = null; ready = false;
+  // Keep child assigned until the OS confirms exit. This prevents a new instance racing the old 8931 port.
   spawn('taskkill', ['/PID', String(pid), '/T', '/F'], { windowsHide: true, stdio: 'ignore' });
 }
 
-setInterval(async () => {
+async function tick() {
   const want = desired();
   const canRun = want && rdcReady();
 
   if (canRun) {
-    idleOffSince = 0;
     if (!child && Date.now() >= retryAt) start();
-  } else {
-    if (child) stop();
-    if (!want) {
-      if (!idleOffSince) idleOffSince = Date.now();
-      if (Date.now() - idleOffSince > 5000) {
-        await writeStatus();
-        process.exit(0);
-      }
-    }
+  } else if (child) {
+    stop();
   }
-  await writeStatus();
-}, 750);
 
+  await writeStatus();
+  setTimeout(tick, pollMs).unref();
+}
+
+// Keep the lightweight manager resident after the first launch. Turning Playwright off stops only
+// the MCP child process, so the next switch-on avoids manager cold-start and reacts within one poll.
 await writeStatus();
+setTimeout(tick, 0);
