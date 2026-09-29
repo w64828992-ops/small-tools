@@ -14,62 +14,72 @@ permissions:
   contents: read
 
 jobs:
-  build:
-    name: Build ${{ matrix.label }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: windows-latest
-            label: Windows x64
-            command: npm run dist:win
-          - os: macos-latest
-            label: macOS universal
-            command: npm run dist:mac
-
-    runs-on: ${{ matrix.os }}
+  windows:
+    name: Windows portable
+    runs-on: windows-latest
     defaults:
       run:
         working-directory: huiyun-lan-transfer
-    env:
-      CSC_IDENTITY_AUTO_DISCOVERY: "false"
 
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
 
-      - name: Setup Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
-        with:
-          node-version: "22"
-          cache: npm
-          cache-dependency-path: huiyun-lan-transfer/package-lock.json
+      - name: Prepare Rust
+        shell: pwsh
+        run: |
+          rustup toolchain install stable --profile minimal --no-self-update
+          rustup default stable
+          rustup component add rustfmt
 
-      - name: Install dependencies
-        run: npm ci
-      - name: Test
-        run: npm test
+      - name: Format check
+        run: cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
 
-      - name: Static check
-        run: npm run check:syntax
+      - name: Tests
+        run: cargo test --manifest-path src-tauri/Cargo.toml
 
-      - name: Package
-        run: ${{ matrix.command }}
+      - name: Build portable EXE
+        shell: pwsh
+        run: powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/build-windows.ps1
 
-      - name: Upload Windows packages
-        if: runner.os == 'Windows'
+      - name: Upload Windows portable
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: huiyun-lan-transfer-Windows
+          name: huiyun-lan-transfer-Windows-portable
           path: huiyun-lan-transfer/dist/*.exe
           if-no-files-found: error
           retention-days: 14
 
-      - name: Upload macOS packages
-        if: runner.os == 'macOS'
+  macos:
+    name: macOS universal portable
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: huiyun-lan-transfer
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Prepare Rust
+        run: |
+          rustup toolchain install stable --profile minimal --no-self-update
+          rustup default stable
+          rustup component add rustfmt
+
+      - name: Format check
+        run: cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
+
+      - name: Tests
+        run: cargo test --manifest-path src-tauri/Cargo.toml
+
+      - name: Build universal app
+        run: bash scripts/build-macos.sh
+
+      - name: Upload macOS portable
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: huiyun-lan-transfer-macOS
+          name: huiyun-lan-transfer-macOS-universal
           path: |
             huiyun-lan-transfer/dist/*.dmg
             huiyun-lan-transfer/dist/*.zip

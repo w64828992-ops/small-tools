@@ -1,180 +1,211 @@
 # 汇云局域网跨传
 
-**Version: 1.0.0**
+**Version: 1.1.0**
 **Release Standard: v1.4.0**
 **Current Compatible Standard: v1.4.0**
 **Security Level: S2（局域网网络服务）**
 
-一个给 Windows 和 macOS 使用的局域网点对点文件快传工具。电脑之间直接传输，不经过云端。
+一个给 Windows 和 macOS 使用的轻量局域网文件快传工具。文件在电脑之间点对点直传，不经过云端。
+
+v1.1.0 已从 Electron 完整改写为 **Rust + Tauri 原生轻量架构**，不再把 Chromium 和 Node.js 打进程序。
+
+## 为什么改成轻量版
+
+v1.0.0 Windows 免安装版约 **105 MB**。
+
+v1.1.0 Windows 便携版当前本机正式构建约 **2.8 MB**，核心原因：
+
+- 不再捆绑 Chromium；
+- 不再捆绑 Node.js；
+- 文件传输核心改为 Rust；
+- 界面使用系统 WebView；
+- 只保留局域网快传真正需要的功能。
+
+Windows 使用系统 WebView2；Windows 10/11 通常已经安装。macOS 使用系统 WebKit。
 
 ## 使用方法
 
 ### 发送方
 
 1. 两台电脑都打开“汇云局域网跨传”。
-2. 在左侧“附近电脑”里点击要发送到的电脑名称。
-3. 把文件或文件夹直接拖进发送区域。
-4. 等待对方选择保存位置。
-5. 对方确认后自动开始传输。
-
-也可以使用“选择文件”或“选择文件夹”按钮。
+2. 在左侧“附近电脑”中点击目标电脑名称。
+3. 把文件或文件夹直接拖入发送区域。
+4. 也可以点击“选择文件”或“选择文件夹”。
+5. 等待接收方选择保存位置后自动开始传输。
 
 ### 接收方
 
-1. 收到文件请求后：
-   - Windows 任务栏图标会闪烁；
-   - macOS Dock 图标会跳动；
-   - 系统通知和软件界面会显示是谁发来的。
-2. 点击“选择位置并接收”。
-3. 选择保存文件夹后开始接收。
-4. 如果不需要，点击“拒绝”。
+收到请求后：
 
-如果保存位置里已经有同名文件或文件夹，软件会自动使用“名称 (1)”“名称 (2)”等新名称，不会静默覆盖原文件。
+- Windows 任务栏图标会闪烁；
+- macOS Dock 会请求用户注意；
+- 窗口标题会显示“谁发来文件”；
+- 软件顶部会出现待接收卡片。
 
-## 第一次使用
+点击“选择位置并接收”，选好保存目录后才开始传输。也可以直接拒绝。
 
-Windows 第一次运行时可能出现防火墙提示，请勾选并允许“专用网络”。
+## 主要功能
 
-两台电脑必须处于能够互相访问的同一局域网/VLAN。公司网络如果禁止终端之间直接访问，也会导致无法发现或传输。
+- Windows + macOS；
+- 同一局域网自动发现电脑；
+- 文件、多个文件、文件夹、空文件夹；
+- 拖拽发送；
+- 接收方人工确认；
+- 自定义本机显示名称；
+- 实时传输进度、速度、文件数量、总大小；
+- 大文件流式传输，不整文件读入内存；
+- 同名顶层文件/文件夹自动使用“(1)”“(2)”等新名称；
+- symlink 不跟随，扫描时跳过；
+- Windows 关闭窗口默认最小化，继续等待接收；
+- macOS 关闭窗口默认隐藏；
+- 重复双击程序不会启动第二个接收服务，而是唤醒已经运行的窗口；
+- 软件内“退出”按钮才真正停止后台接收服务。
 
-## 功能
+## 局域网要求
 
-- Windows + macOS。
-- 自动发现同一局域网电脑。
-- 文件、多个文件、文件夹、空文件夹。
-- 直接拖拽发送。
-- 接收方人工确认后才开始传输。
-- 实时进度、速度、文件数量和总大小。
-- 4 个文件并发上传，大文件使用流式传输，不整文件读入内存。
-- 顶层重名自动避让。
-- 任务栏 / Dock 提醒。
-- 可修改本机显示名称。
-- Windows 关闭窗口默认最小化，后台继续等待接收。
-- 托盘菜单支持“打开 / 退出”。
+两台电脑必须位于能够互相访问的局域网。
+
+首次在 Windows 使用时，如果系统弹出防火墙提示，请允许“专用网络”。
+
+如果公司网络、访客 Wi-Fi 或 VLAN 配置禁止终端之间直接访问，设备可能无法互相发现。
+
+## 传输设计
+
+v1.1.0 使用轻量自定义协议：
+
+```text
+UDP 广播
+  ↓
+自动发现附近电脑
+  ↓
+发送 Offer
+  ↓
+接收方人工选择保存位置
+  ↓
+TCP 单连接流式直传
+  ↓
+.huiyun-part 临时文件
+  ↓
+完整写入后 rename 为正式文件
+```
+
+单条 TCP 流足以充分利用常见千兆局域网，同时比多进程/多运行时方案更小、更简单。
 
 ## 安全边界
 
-本软件按 Repository Standard 的 **S2** 级别管理，因为它会在局域网中监听网络请求。
+本软件属于 **S2**，因为会在局域网中监听文件接收连接。
 
-v1.0.0 的安全措施：
+当前安全措施：
 
-- 每次程序启动生成新的 256-bit 临时 capability token。
-- token 只用于当前运行周期。
-- 所有传输 HTTP 请求必须带目标电脑的有效 token。
-- 网络服务拒绝非 loopback / 私有局域网 / link-local 来源。
-- 每一次传输仍必须由接收方人工确认。
-- 接收端只允许写入发送方 offer manifest 中声明的文件。
-- 文件路径经过 traversal 检查，禁止绝对路径、`..`、NUL 等。
-- 文件先写入临时 `.part` 文件，完整接收后再改名。
-- 不记录 token 和文件内容。
-- symlink 不跟随，扫描时直接跳过。
+- 每次启动生成新的 256-bit 临时 capability token；
+- discovery beacon 只用于同一局域网发现；
+- 文件请求必须携带当前目标电脑 token；
+- TCP 接收端拒绝公网来源，只接受 loopback、私网和 link-local 地址；
+- 每一笔传输必须由接收方人工确认；
+- 接收端只允许写入 manifest 中声明的文件；
+- 文件路径拒绝绝对路径、`..`、空路径段和 NUL；
+- Windows 接收时检查 Windows 不支持的特殊文件名；
+- 文件大小必须与 manifest 一致；
+- 文件先写临时文件，完整接收后再 rename；
+- 已存在同名顶层对象时不会静默覆盖；
+- 不把 token 或文件内容写入日志；
+- symlink 不跟随。
 
 ### 重要限制
 
-**v1.0.0 没有端到端加密。仅用于可信局域网。**
+**v1.1.0 没有端到端加密，只用于可信局域网。**
 
-同一局域网中能够抓包的攻击者理论上可能看到传输内容或 discovery beacon，因此不要在不可信公共 Wi-Fi 上传输敏感文件。
+同一局域网中具备抓包能力的第三方理论上可以看到 discovery 信息或传输内容，因此不要在机场、酒店、咖啡店等不可信公共网络发送敏感资料。
 
 另外：
 
-- v1.0.0 不支持断点续传；
-- 不支持互联网远程传输；
+- 暂不支持断点续传；
+- 不支持互联网/NAT 穿透；
 - discovery 当前使用 IPv4 UDP 广播；
-- Windows 不支持的特殊文件名从 Mac 发往 Windows 时会在接收确认阶段拒绝；
-- Mac 版本当前为内部使用的未签名包，首次可能需要在 Finder 中右键应用并选择“打开”。
+- macOS 包为内部使用的 ad-hoc/未公证版本，首次可能需要在 Finder 中右键选择“打开”；
+- **v1.0.0 与 v1.1.0 协议不同，不互传；公司电脑应统一升级到 v1.1.0。**
 
-更详细说明见 [docs/SECURITY_NOTES.md](docs/SECURITY_NOTES.md)。
+详细安全说明见 [docs/SECURITY_NOTES.md](docs/SECURITY_NOTES.md)。
 
-## 技术结构
+## 轻量架构
 
 ```text
-UDP broadcast
-    ↓
-附近设备发现
-    ↓
-HTTP offer
-    ↓
-接收方人工选择保存位置
-    ↓
-Node.js stream 并发文件上传
-    ↓
-.part 临时文件
-    ↓
-完整接收后 rename
+ui/
+  index.html
+  styles.css
+  app.js
+
+src-tauri/
+  src/main.rs       # 桌面窗口、命令、拖拽、生命周期
+  src/discovery.rs  # UDP 局域网发现
+  src/transfer.rs   # TCP 文件发送/接收
+  src/settings.rs   # 本机名称/设备 ID
+  src/state.rs      # 运行状态
+  src/util.rs       # 路径安全、协议帧、局域网判断
 ```
 
-核心模块：
+没有 Electron、没有 node_modules、没有前端框架。
 
-- `src/discovery.js`：局域网设备发现。
-- `src/transfer.js`：Offer、接收授权、流式文件传输。
-- `src/path-utils.js`：路径安全和重名保护。
-- `src/network-utils.js`：局域网地址判断。
-- `src/settings.js`：设备名称和设备 ID。
-- `src/main.js`：Electron 主进程、通知、托盘和窗口生命周期。
-- `src/preload.js`：Renderer 最小权限桥接。
-
-## 开发
+## 开发与测试
 
 要求：
 
-- Node.js 22+
-- npm
-- Windows 或 macOS
+- Rust stable；
+- Windows：Visual Studio Build Tools；
+- macOS：Xcode Command Line Tools。
 
-安装：
-
-```bash
-npm ci
-```
-
-运行：
+运行测试：
 
 ```bash
-npm start
+cd src-tauri
+cargo test
 ```
 
-检查：
+格式检查：
 
 ```bash
-npm run check
+cd src-tauri
+cargo fmt --check
 ```
 
-Windows 打包：
+Windows 便携版：
+
+```powershell
+powershell -File scripts/build-windows.ps1
+```
+
+macOS universal 便携版：
 
 ```bash
-npm run dist:win
+bash scripts/build-macos.sh
 ```
 
-macOS 打包：
+构建产物统一放在 `dist/`。
 
-```bash
-npm run dist:mac
-```
+## 当前自动测试
 
-GitHub Actions 会在 Windows 和 macOS 上分别测试和打包。
+Rust 单元测试覆盖：
+
+- 私网/公网 IP 判断；
+- path traversal 拒绝；
+- JSON 协议帧读写；
+- 顶层同名不覆盖；
+- 文件与空文件夹扫描；
+- manifest 重复路径拒绝；
+- 选择多个同名顶层对象时自动重命名；
+- discovery 基础参数检查；
+- 电脑名称连续修改与持久化；
+- symlink 扫描跳过（系统支持创建测试链接时）。
+
+PR 还必须通过 GitHub Secret Scan、Windows 构建和 macOS universal 构建后才能合并。
 
 ## 图标
 
-图标为本项目原创简易图标：“两台电脑 + 双向箭头”。
-
-源码：
+继续使用本项目原创“两台电脑 + 双向箭头”图标：
 
 - `build/icon.svg`
-- `scripts/generate-icons.py`
+- `build/icon.png`
+- `build/icon.ico`
+- `build/icon.icns`
 
-重新生成 PNG / ICO / ICNS：
-
-```bash
-python -m pip install pillow
-python scripts/generate-icons.py
-```
-
-## 当前未覆盖
-
-- 断点续传；
-- 端到端加密；
-- 跨互联网/NAT；
-- 复杂权限分组和企业集中管理；
-- Electron GUI 自动化测试。
-
-这些不影响 v1.0.0 在可信局域网中的基础文件快传场景。
+生成脚本：`scripts/generate-icons.py`。
