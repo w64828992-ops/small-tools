@@ -1,5 +1,44 @@
 # Changelog
 
+## v1.1.0 - 2026-09-29
+
+### 新增
+
+- 新增 Windows “汇云电脑控制器”，把 RDC 与 Playwright MCP 集成到同一控制面板。
+- 新增 Playwright 独立开关、真实运行状态、失败状态与“启动 / 重连”状态。
+- 新增“全部开启”，按 RDC → Playwright 的依赖顺序启动。
+- 新增本机 Playwright MCP 服务：`http://127.0.0.1:8931/mcp`。
+- 新增 Windows 可复现构建、Codex 配置迁移、桌面安装和 smoke test。
+- 新增 Playwright 服务层依赖保护：RDC 未实际在线时 Playwright 不启动。
+
+### 修改
+
+- Windows RDC 控制器软件名称统一为“汇云电脑控制器”。
+- 关闭 RDC 时，如 Playwright 正在运行，先关闭 Playwright 再关闭 RDC。
+- Codex Playwright 配置由 stdio 启动方式迁移为本机 Streamable HTTP 服务。
+- Windows 状态判断由按钮状态升级为状态文件 + 实际进程 + Playwright 端口检测。
+
+### 安全
+
+- Playwright 服务只绑定 `127.0.0.1`，不对局域网或公网开放。
+- 浏览器 Profile 保存在 LocalAppData，不进入仓库。
+- 自动测试不主动切断当前真实 RDC 远程链路。
+
+### 测试
+
+- Windows 编译：通过。
+- Node 脚本语法：通过。
+- Playwright MCP v0.0.82 依赖检查：通过。
+- UI 无交互渲染：通过。
+- 依赖模拟：RDC 在线时 Playwright 可启动；Playwright 关闭后端口关闭；RDC 离线时 Playwright 不启动。
+- 真实 RDC 断开 / 重连：未自动执行，避免切断当前远程开发链路。
+
+### 兼容性与限制
+
+- Windows 依赖 Microsoft Edge。
+- Playwright MCP 端口固定为 8931。
+- Codex 若在 Playwright 关闭时初始化，必要时需重新打开或新建会话以重新发现 MCP 服务。
+
 ## v1.0.0 - 2026-09-22
 
 ### 新增
