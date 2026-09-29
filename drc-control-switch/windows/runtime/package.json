@@ -1,0 +1,9 @@
+{
+  "name": "huiyun-computer-controller-windows-runtime",
+  "private": true,
+  "version": "1.1.0",
+  "dependencies": {
+    "@playwright/mcp": "0.0.82",
+    "@wonderwhy-er/desktop-commander": "0.2.51"
+  }
+}
