@@ -9,6 +9,7 @@
 3. 当前目标仓库固定为：`w64828992-ops/small-tools`。
 4. 一个小工具一个一级目录，目录名使用英文小写 + 连字符。
 5. 真实密码、Token、API Key、Cookie、私钥和未脱敏敏感业务数据不得提交 Git。
+6. Windows + RDC 标准开发机以 `D:\Dev\small-tools` 为唯一长期工作仓库；标准入口见 `docs/WINDOWS_RDC_DEV_WORKFLOW.md` 和根目录 `scripts/`。
 
 ## 默认开发流程
 

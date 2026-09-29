@@ -2,6 +2,21 @@
 
 记录 `small-tools` 仓库层面的治理、规则和结构变化。
 
+## 2026-09-29 - Windows RDC 标准开发工作流
+
+### 新增
+
+- 固定 Windows 开发仓库为 `D:\Dev\small-tools`，减少桌面、下载目录和临时目录中的重复开发副本。
+- 新增 `scripts/repo-health.ps1`、`scripts/start-work.ps1`、`scripts/finish-work.ps1`，把环境检查、临时分支创建、本地测试、Gitleaks、Commit、Push、PR、GitHub Secret Scan/CI、合并、`tool/*` 同步和 Tag 串成标准流程。
+- 新增 `docs/WINDOWS_RDC_DEV_WORKFLOW.md`，供 RDC、ChatGPT、Codex 和人工开发统一执行。
+
+### 原因
+
+- 负责人要求 Windows 电脑成为可长期通过 RDC 直接开发、测试、编译并自动归档 GitHub 的统一开发机。
+- 将 Repository Standard v1.4.0 的“开发完成自动归档”规则落实为可执行脚本，降低每次重复配置和漏传 GitHub 的概率。
+
+---
+
 ## Repository Standard v1.4.0 - 2026-09-24
 
 ### 新增

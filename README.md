@@ -83,6 +83,7 @@ software-name/
 - [仓库开发、版本与归档主规则](docs/REPO_STANDARD.md)：仓库最高规则。
 - [认证与密钥管理规范](docs/AUTH_AND_SECRETS_STANDARD.md)：认证、授权、凭证、Token 和日志安全的专项规则。
 - [安全事件处理](SECURITY.md)：漏洞、误提交凭证和应急处置。
+- [Windows + RDC 统一开发工作流](docs/WINDOWS_RDC_DEV_WORKFLOW.md)：固定开发目录、开始开发、自动归档和本地安全检查入口。
 
 ## 模板
 
