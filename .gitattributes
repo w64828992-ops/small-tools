@@ -1,0 +1,10 @@
+* text=auto
+
+# Cross-platform scripts must keep Unix line endings.
+*.sh text eol=lf
+*.bash text eol=lf
+*.swift text eol=lf
+
+# Windows command scripts keep CRLF.
+*.cmd text eol=crlf
+*.bat text eol=crlf

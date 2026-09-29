@@ -11,6 +11,8 @@
 
 不要在桌面、下载目录或临时目录建立同一仓库的长期开发副本。
 
+Windows 系统级 Git 默认可能启用 `core.autocrlf=true`。仓库通过 `.gitattributes` 强制 `.sh`、`.bash`、`.swift` 使用 LF，避免 Windows 检出后破坏跨平台构建和测试脚本。
+
 ## 三个标准入口
 
 ### 1. 环境检查
