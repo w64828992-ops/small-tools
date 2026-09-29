@@ -2,6 +2,17 @@
 
 记录 `small-tools` 仓库层面的治理、规则和结构变化。
 
+## 2026-09-30 - 汇云局域网跨传 v1.1.0 轻量便携版
+
+### 变更
+
+- `huiyun-lan-transfer` 从 Electron + Node.js 完整改写为 Rust + Tauri，移除仓库中的 Electron 源码与 npm 依赖。
+- Windows 正式便携版由约 105 MB 降至本机正式构建约 2.8 MB，改为单 EXE 直接运行。
+- macOS 构建改为 Rust universal app + ZIP / DMG，并由双平台 CI 验证。
+- 保留局域网自动发现、拖拽文件/文件夹、接收确认、任务栏/Dock 提醒、进度和同名保护等核心体验。
+
+---
+
 ## 2026-09-29 - 汇云局域网跨传 v1.0.0
 
 ### 新增

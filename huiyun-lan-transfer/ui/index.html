@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>汇云局域网跨传</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="./icon.png" alt="" class="brand-icon">
+      <div>
+        <h1>汇云局域网跨传</h1>
+        <p>轻量便携 · 局域网直传</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button id="deviceNameButton" class="device-button" title="点击修改本机名称">读取中…</button>
+      <span class="online-dot"></span>
+      <button id="quitButton" class="quiet-button">退出</button>
+    </div>
+  </header>
+
+  <div class="notice" id="firewallNotice">
+    首次使用如出现 Windows 防火墙提示，请允许“专用网络”。
+    <button id="dismissNotice" aria-label="关闭">×</button>
+  </div>
+
+  <section id="incomingSection" class="incoming-section hidden">
+    <div class="section-heading">
+      <h2>待接收</h2>
+      <span class="badge warm">有人给你发文件</span>
+    </div>
+    <div id="incomingList" class="incoming-list"></div>
+  </section>
+
+  <main class="layout">
+    <aside class="panel peers-panel">
+      <div class="section-heading">
+        <h2>附近电脑</h2>
+        <span id="peerCount" class="badge">0 台</span>
+      </div>
+      <p class="hint">自动发现同一局域网中已打开本软件的电脑。</p>
+      <div id="peerList" class="peer-list"></div>
+      <div id="emptyPeers" class="empty-state">
+        <div class="scan-icon">◎</div>
+        <strong>正在寻找附近电脑</strong>
+        <span>请确认另一台电脑也打开了本软件</span>
+      </div>
+    </aside>
+
+    <section class="right-column">
+      <section class="panel send-panel">
+        <div class="target-row">
+          <div>
+            <div class="eyebrow">发送到</div>
+            <h2 id="targetName">请先选择左侧电脑</h2>
+            <p id="targetAddress">选中电脑后，把文件或文件夹拖到下面</p>
+          </div>
+          <span id="targetBadge" class="badge">未选择</span>
+        </div>
+
+        <div id="dropZone" class="drop-zone disabled">
+          <div class="transfer-icon">⇄</div>
+          <h3>拖入文件或文件夹</h3>
+          <p>局域网点对点直传，不经过云端</p>
+          <div class="buttons">
+            <button id="chooseFiles" class="primary-button" disabled>选择文件</button>
+            <button id="chooseFolder" class="secondary-button" disabled>选择文件夹</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel activity-panel">
+        <div class="section-heading">
+          <h2>传输记录</h2>
+          <button id="clearCompleted" class="text-button">清理已完成</button>
+        </div>
+        <div id="activityList" class="activity-list"></div>
+        <div id="emptyActivity" class="empty-activity">还没有传输任务</div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <span id="statusText">正在启动局域网服务…</span>
+    <span id="versionText">v1.1.0</span>
+  </footer>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="./app.js"></script>
+</body>
+</html>

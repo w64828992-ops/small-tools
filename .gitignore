@@ -21,6 +21,10 @@ npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
 
+# Rust / Tauri
+**/target/
+**/src-tauri/gen/
+
 # Build / cache
 dist/
 build/
