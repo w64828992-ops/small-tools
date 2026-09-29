@@ -8,7 +8,7 @@ using System.Web.Script.Serialization;
 
 class Controller : Form
 {
-    const string Version = "1.1.1";
+    const string Version = "1.1.2";
     static readonly string Root = AppDomain.CurrentDomain.BaseDirectory;
 
     readonly Label rdcStatus = new Label(), rdcDetail = new Label();
@@ -154,10 +154,10 @@ class Controller : Form
             Font = new Font(Font.FontFamily, 9)
         });
 
-        dependencyTimer.Interval = 500;
+        dependencyTimer.Interval = 200;
         dependencyTimer.Tick += delegate { ContinueRdcOffSequence(); };
 
-        refreshTimer.Interval = 1000;
+        refreshTimer.Interval = 250;
         refreshTimer.Tick += delegate { UpdateState(); };
         refreshTimer.Start();
         UpdateState();

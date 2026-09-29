@@ -1,6 +1,6 @@
 # DRC / Playwright 控制开关
 
-**Current Version:** v1.1.1
+**Current Version:** v1.1.2
 **Release Standard:** v1.4.0
 **Current Compatible Standard:** v1.4.0
 **Security Level:** S2（可控制远程访问与浏览器自动化能力）
@@ -27,6 +27,7 @@ Windows 版重点解决两个问题：
 6. “全部开启”按 RDC → Playwright 的依赖顺序执行。
 7. 关闭控制器窗口不会关闭后台服务。
 8. 界面状态读取实际状态文件、进程与端口，不以按钮点击结果冒充成功。
+9. Playwright 管理进程常驻但浏览器控制子进程可关闭；重新开启时等待旧端口完全释放后立即拉起，不再触发 5 秒退避。当前 Windows 开发机实测由约 7.2 秒降至约 1.4 秒。
 ## 3. Windows 状态与服务
 
 Windows 正式安装目录：
@@ -193,6 +194,7 @@ Windows Playwright 服务只监听 `127.0.0.1`，浏览器配置文件存放在�
 drc-control-switch-v1.0.0
 drc-control-switch-v1.1.0
 drc-control-switch-v1.1.1
+drc-control-switch-v1.1.2
 ```
 
 Windows 配置迁移前会生成 Codex 配置备份；出现问题时可恢复备份，并重新部署上一稳定 Tag。
@@ -201,7 +203,7 @@ Windows 配置迁移前会生成 Codex 配置备份；出现问题时可恢复�
 
 - 正式代码源：`main`
 - 长期稳定入口：`tool/drc-control-switch`
-- 当前版本：v1.1.1
+- 当前版本：v1.1.2
 - Release Standard：v1.4.0
 - Current Compatible Standard：v1.4.0
-- 正式 Tag：`drc-control-switch-v1.1.1`
+- 正式 Tag：`drc-control-switch-v1.1.2`
