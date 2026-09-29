@@ -8,7 +8,7 @@ using System.Web.Script.Serialization;
 
 class Controller : Form
 {
-    const string Version = "1.1.0";
+    const string Version = "1.1.1";
     static readonly string Root = AppDomain.CurrentDomain.BaseDirectory;
 
     readonly Label rdcStatus = new Label(), rdcDetail = new Label();

@@ -1,6 +1,6 @@
 # DRC / Playwright 控制开关
 
-**Current Version:** v1.1.0
+**Current Version:** v1.1.1
 **Release Standard:** v1.4.0
 **Current Compatible Standard:** v1.4.0
 **Security Level:** S2（可控制远程访问与浏览器自动化能力）
@@ -17,7 +17,7 @@ Windows 版重点解决两个问题：
 1. 用户不需要再通过终端手动启动、停止 RDC 或 Playwright。
 2. Playwright 必须依赖 RDC：**Playwright 开启时，RDC 一定处于开启状态。**
 
-## 2. Windows v1.1.0 核心规则
+## 2. Windows v1.1.x 核心规则
 
 1. RDC 可以单独开启、关闭。
 2. 开启 Playwright 时，如 RDC 未开启，先开启 RDC。
@@ -117,6 +117,8 @@ Windows 运行依赖：
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File windows\scripts\install-desktop.ps1
 ```
 
+升级安装会同步正式构建中打包的 Node 依赖，即使目标目录已经存在 `node_modules`，也会补齐/覆盖当前版本需要的依赖；不会因为升级而主动关闭 RDC 后台连接。
+
 将 Codex 的 Playwright MCP 改为本机 HTTP 服务：
 
 ```powershell
@@ -190,6 +192,7 @@ Windows Playwright 服务只监听 `127.0.0.1`，浏览器配置文件存放在�
 ```text
 drc-control-switch-v1.0.0
 drc-control-switch-v1.1.0
+drc-control-switch-v1.1.1
 ```
 
 Windows 配置迁移前会生成 Codex 配置备份；出现问题时可恢复备份，并重新部署上一稳定 Tag。
@@ -198,7 +201,7 @@ Windows 配置迁移前会生成 Codex 配置备份；出现问题时可恢复�
 
 - 正式代码源：`main`
 - 长期稳定入口：`tool/drc-control-switch`
-- 当前版本：v1.1.0
+- 当前版本：v1.1.1
 - Release Standard：v1.4.0
 - Current Compatible Standard：v1.4.0
-- 正式 Tag：`drc-control-switch-v1.1.0`
+- 正式 Tag：`drc-control-switch-v1.1.1`

@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.1.1 - 2026-09-29
+
+### 修复
+
+- 修复 Windows 升级安装时目标目录已存在 `node_modules` 就跳过依赖同步的问题。
+- 升级安装现在会合并正式构建中打包的依赖，确保本地 `@playwright/mcp` 不再依赖全局安装兜底。
+- 新增 `-SkipShortcut` 安装参数，供无副作用的升级模拟测试使用。
+
+### 测试
+
+- 新增旧目录已存在 `node_modules`、但缺少 Playwright MCP 的升级模拟测试。
+- 验证升级后本地 Playwright MCP 存在，且 `package-lock.json` 与正式构建一致。
+- 测试过程不执行真实 RDC 断开 / 重连。
+
+### 兼容性
+
+- RDC / Playwright 开关逻辑与 v1.1.0 保持不变。
+- Windows 桌面运行目录和 Codex Playwright HTTP 地址保持不变。
+
 ## v1.1.0 - 2026-09-29
 
 ### 新增
