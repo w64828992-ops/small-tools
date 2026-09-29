@@ -6,6 +6,8 @@
 
 ### 新增
 
+- 新增 `.gitattributes`，强制 `.sh`、`.bash`、`.swift` 使用 LF，避免 Windows 系统级 `core.autocrlf=true` 破坏跨平台脚本。
+
 - 固定 Windows 开发仓库为 `D:\Dev\small-tools`，减少桌面、下载目录和临时目录中的重复开发副本。
 - 新增 `scripts/repo-health.ps1`、`scripts/start-work.ps1`、`scripts/finish-work.ps1`，把环境检查、临时分支创建、本地测试、Gitleaks、Commit、Push、PR、GitHub Secret Scan/CI、合并、`tool/*` 同步和 Tag 串成标准流程。
 - 新增 `docs/WINDOWS_RDC_DEV_WORKFLOW.md`，供 RDC、ChatGPT、Codex 和人工开发统一执行。
