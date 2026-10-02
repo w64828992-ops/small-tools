@@ -6,10 +6,13 @@
 
 1. 开始任何开发前，必须先读取 `docs/REPO_STANDARD.md`。
 2. 如本文件与 `docs/REPO_STANDARD.md` 冲突，以 `docs/REPO_STANDARD.md` 为准。
-3. 当前目标仓库固定为：`w64828992-ops/small-tools`。
+3. 先读 `docs/PROJECT_ROUTING_STANDARD.md` 判断新项目归属：小项目进入本库，大项目独立建仓并定制规则。本库内工作的目标固定为 `w64828992-ops/small-tools`，不得将大项目继续堆入本库。
 4. 一个小工具一个一级目录，目录名使用英文小写 + 连字符。
 5. 真实密码、Token、API Key、Cookie、私钥和未脱敏敏感业务数据不得提交 Git。
 6. Windows + RDC 标准开发机以 `D:\Dev\small-tools` 为唯一长期工作仓库；标准入口见 `docs/WINDOWS_RDC_DEV_WORKFLOW.md` 和根目录 `scripts/`。
+
+7. 中文注释为硬性要求：自行维护的文件、类、具名函数/方法及关键逻辑须有中文说明，测试注明验证场景；注释准确性必须核验，未满足不能交付。
+8. 不自动迁移已有项目；本机通用入口为 `D:\Dev\AGENTS.md`，独立项目必须读取自己的主规则，不复用本库脚本中的固定路径。
 
 ## 默认开发流程
 

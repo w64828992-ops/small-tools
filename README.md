@@ -1,8 +1,14 @@
 # small-tools
 
-> Repository Standard: **v1.4.0**
+> Repository Standard: **v1.5.0**
 
-这是所有自制软件、小工具和自动化程序的长期代码资产库。
+这是自制小软件、小工具和范围清晰的自动化程序的长期代码资产库。**小项目集中到本仓库，大项目按软件名称单独建仓并制定专用规则。**
+
+## 新项目先判断归属
+
+按功能范围、模块和数据复杂度、独立部署发布及维护需求判断，不机械看代码行数。小项目放 `D:\Dev\small-tools\<software-name>`；大项目放 `D:\Dev\<project-name>` 并建立独立私有仓库。现有项目不自动搬迁。
+
+详见 [项目分仓规范](docs/PROJECT_ROUTING_STANDARD.md)、[独立项目规则模板](_templates/INDEPENDENT_PROJECT_STANDARD_TEMPLATE.md) 和 [本机开发入口模板](_templates/WORKSPACE_AGENTS_TEMPLATE.md)。无论大小，中文注释、适用测试、安全与真实归档证据都是硬性要求。
 
 ## 核心原则
 
@@ -97,10 +103,11 @@ software-name/
 
 ~~~text
 明确需求
+→ 判断规模与仓库归属，大项目转独立仓库流程
 → 判断 S0/S1/S2 安全级别
 → 新建软件一级目录
 → 规划结构与版本
-→ 编码并写详细注释
+→ 编码并写有意义的中文注释
 → 完成认证、授权和凭证处理（适用时）
 → 测试核心、异常和越权场景
 → 更新 README / CHANGELOG / VERSION

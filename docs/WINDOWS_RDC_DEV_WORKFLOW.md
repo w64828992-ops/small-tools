@@ -2,6 +2,10 @@
 
 本文件定义 Windows 开发机通过 RDC、ChatGPT、Codex 开发 `small-tools` 时的本地执行方式。仓库最高规则仍为 [REPO_STANDARD.md](REPO_STANDARD.md)。
 
+## 先确认项目归属
+
+新项目先读本机 `D:\Dev\AGENTS.md` 与 [分仓规范](PROJECT_ROUTING_STANDARD.md)。本页的 `st-*`、固定路径和归档脚本仅用于 small-tools；大项目进入 `D:\Dev\<project-name>` 的独立仓库并按需建立自己的工作流，不直接复用固定 small-tools 路径的脚本。既有项目不自动搬迁。
+
 ## 固定路径
 
 - Repository：`w64828992-ops/small-tools`

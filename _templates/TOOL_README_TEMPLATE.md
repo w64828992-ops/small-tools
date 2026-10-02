@@ -1,8 +1,8 @@
 # 软件名称
 
 **Current Version:** v0.1.0  
-**Release Standard:** v1.4.0  
-**Current Compatible Standard:** v1.4.0  
+**Release Standard:** 未发布（发布时记录实际遵循版本）
+**Current Compatible Standard:** v1.5.0
 **Status:** 开发中 / 待测试 / 已完成
 
 ## 1. 软件用途
@@ -202,3 +202,12 @@ EXTERNAL_API_KEY=
 - **最近一次自动归档：** Commit / PR / Secret Scan / Tag 状态
 
 注意：`tool/*` 只是当前稳定入口，不允许长期独立于 `main` 演进。
+
+
+## 项目规模与中文注释复核
+
+- 项目规模：小项目；判断依据：填写功能/模块/数据/部署与维护评估。
+- 归属：w64828992-ops/small-tools/<software-name>；本地路径与正式 remote 已核对。
+- [ ] 本次自行维护的文件、类/函数/方法与关键逻辑有中文说明，测试说明验证场景。
+- [ ] 注释与实现一致，已说明人工复核及自动检查的覆盖边界。
+- 若评估需要独立发布、权限或复杂系统治理，应使用独立项目模板，不能继续套用本小工具模板。
