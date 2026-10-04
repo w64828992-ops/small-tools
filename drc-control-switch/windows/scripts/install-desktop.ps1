@@ -48,8 +48,14 @@ if (-not $SkipShortcut) {
     # can run this UTF-8 source reliably even when its legacy script decoder is active.
     $shortcutName = (-join @(
         [char]0x6C47, [char]0x4E91, [char]0x7535, [char]0x8111,
+        [char]0x63A7, [char]0x5236, [char]0x4E2D, [char]0x5FC3
+    )) + '.lnk'
+    $legacyShortcutName = (-join @(
+        [char]0x6C47, [char]0x4E91, [char]0x7535, [char]0x8111,
         [char]0x63A7, [char]0x5236, [char]0x5668
     )) + '.lnk'
+    $legacyLink = Join-Path $desktop $legacyShortcutName
+    if (Test-Path $legacyLink) { Remove-Item $legacyLink -Force }
     $link = Join-Path $desktop $shortcutName
     $ws = New-Object -ComObject WScript.Shell
     $sc = $ws.CreateShortcut($link)

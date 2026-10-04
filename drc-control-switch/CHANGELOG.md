@@ -1,5 +1,29 @@
 # Changelog
 
+## v1.2.0 - 2026-10-04
+
+### 新增
+
+- Windows 控制器升级为“汇云电脑控制中心”，同一界面固定展示两台 RDC 设备。
+- 电脑 A 固定绑定 Windows Device ID `7751ebc0-b6ab-4f08-ae1d-42758c1fb546`；电脑 B 固定绑定 Mac Device ID `5dff6030-6289-47cd-9887-d0628b23e5db`。
+- 两台设备分别增加可编辑 GPT 账号标签，标签保存在本机 `controller_devices.json`，设备身份仍以 RDC Device ID 为唯一依据。
+- Windows 卡片保留本机 RDC / Playwright 独立开关与 Playwright=>RDC 依赖保护。
+- Mac 卡片显示独立 RDC / Playwright 状态区域；当前 Mac 离线时明确禁用远程按钮。
+
+### 安全与限制
+
+- RDC v0.2.51 官方本地 CLI 不提供桌面程序直接向另一台设备安全派发工具调用的客户端命令。
+- 本版本不复制、导出或二次保存 RDC 私有访问令牌来绕过官方能力边界。
+- Mac 当前离线，因此本版本不宣称已经完成 Mac 的远程 RDC / Playwright 开关；需 Mac 上线并安装经确认的安全控制代理后再启用。
+
+### 测试
+
+- Windows C# 编译通过。
+- Node 脚本语法与 Playwright MCP 依赖检查通过。
+- 双设备 UI 无交互渲染通过。
+- 升级安装模拟通过。
+- 未执行真实 RDC 断开 / 重连，避免切断当前远程开发链路。
+
 ## v1.1.2 - 2026-09-30
 
 ### 性能优化
