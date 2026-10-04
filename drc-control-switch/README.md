@@ -1,6 +1,6 @@
 # DRC / Playwright 控制开关
 
-**Current Version:** v1.1.2
+**Current Version:** v1.2.0
 **Release Standard:** v1.4.0
 **Current Compatible Standard:** v1.4.0
 **Security Level:** S2（可控制远程访问与浏览器自动化能力）
@@ -17,7 +17,7 @@ Windows 版重点解决两个问题：
 1. 用户不需要再通过终端手动启动、停止 RDC 或 Playwright。
 2. Playwright 必须依赖 RDC：**Playwright 开启时，RDC 一定处于开启状态。**
 
-## 2. Windows v1.1.x 核心规则
+## 2. Windows v1.x 核心规则
 
 1. RDC 可以单独开启、关闭。
 2. 开启 Playwright 时，如 RDC 未开启，先开启 RDC。
@@ -28,6 +28,21 @@ Windows 版重点解决两个问题：
 7. 关闭控制器窗口不会关闭后台服务。
 8. 界面状态读取实际状态文件、进程与端口，不以按钮点击结果冒充成功。
 9. Playwright 管理进程常驻但浏览器控制子进程可关闭；重新开启时等待旧端口完全释放后立即拉起，不再触发 5 秒退避。当前 Windows 开发机实测由约 7.2 秒降至约 1.4 秒。
+
+## 2.1 v1.2.0 双设备控制中心
+
+v1.2.0 将 Windows 控制器从“单机开关”升级为“双设备身份中心”：
+
+- 电脑 A：`WIM-20260828KZJ`，RDC Device ID 固定为 `7751ebc0-b6ab-4f08-ae1d-42758c1fb546`。
+- 电脑 B：`Mac.local`，RDC Device ID 固定为 `5dff6030-6289-47cd-9887-d0628b23e5db`。
+- 每台设备都有独立 GPT 账号标签；标签保存在本机 `controller_devices.json`，可在界面直接修改。
+- 设备身份以 RDC Device ID 为准，不依赖电脑名称或 Google 浏览器账号，避免两个 GPT 账号混淆。
+- 当前 Windows 卡片可以完整控制本机 RDC / Playwright。
+- Mac 当前处于 RDC 离线状态，因此远程开关明确禁用，不把“离线”伪装成“可控制”。
+- 已确认 RDC v0.2.51 官方本地 CLI 没有提供“桌面程序直接向另一台设备安全派发工具调用”的客户端命令。本工具不会复制、导出或二次保存 RDC 私有认证令牌来绕过该边界。
+
+后续 Mac 上线并安装经确认的安全控制代理后，可在同一双设备界面启用 Mac 的独立 RDC / Playwright 远程开关。
+
 ## 3. Windows 状态与服务
 
 Windows 正式安装目录：
@@ -39,7 +54,7 @@ C:\Users\Administrator\Desktop\Codex\RemoteDesktopCommander
 桌面入口：
 
 ```text
-汇云电脑控制器.lnk
+汇云电脑控制中心.lnk
 ```
 
 RDC 状态文件：
@@ -195,6 +210,7 @@ drc-control-switch-v1.0.0
 drc-control-switch-v1.1.0
 drc-control-switch-v1.1.1
 drc-control-switch-v1.1.2
+drc-control-switch-v1.2.0
 ```
 
 Windows 配置迁移前会生成 Codex 配置备份；出现问题时可恢复备份，并重新部署上一稳定 Tag。
@@ -203,7 +219,7 @@ Windows 配置迁移前会生成 Codex 配置备份；出现问题时可恢复�
 
 - 正式代码源：`main`
 - 长期稳定入口：`tool/drc-control-switch`
-- 当前版本：v1.1.2
+- 当前版本：v1.2.0
 - Release Standard：v1.4.0
 - Current Compatible Standard：v1.4.0
-- 正式 Tag：`drc-control-switch-v1.1.2`
+- 正式 Tag：`drc-control-switch-v1.2.0`
